@@ -49,3 +49,38 @@ AmazonS3_node1750165827666 = glueContext.create_dynamic_frame.from_options(
     format="parquet", 
     connection_options={"paths": ["s3://project2dt/data/apartments/"], "recurse": True}, 
     transformation_ctx="AmazonS3_node1750165827666")
+
+"""The scripts below connects to an Amazon Redshift database and writes the 
+data from the DynamicFrames created from S3.
+It uses the GlueContext to write the data to the specified Redshift table, 
+creating the table if it does not exist."""
+
+# Script for node Amazon Redshift 
+# --apartment_attributes to raw_data.apartment_attributes in Redshift
+AmazonRedshift_node1750164179207 = glueContext.write_dynamic_frame.from_options(
+    frame=AmazonS3_node1750164168812, connection_type="redshift", 
+    connection_options={
+        "redshiftTmpDir": "s3://aws-glue-assets-025523568662-eu-north-1/temporary/",
+        "useConnectionProperties": "true",
+        "dbtable": "raw_data.apartment_attributes",
+        "connectionName": "Redshift connection", 
+        "preactions": "CREATE TABLE IF NOT EXISTS raw_data.apartment_attributes "
+        "("
+        "id INTEGER,"
+        " category VARCHAR, "
+        "body VARCHAR, "
+        "amenities VARCHAR, "
+        "bathrooms INTEGER, "
+        "bedrooms INTEGER, "
+        "fee DECIMAL, "
+        "has_photo VARCHAR, "
+        "pets_allowed VARCHAR, "
+        "price_display VARCHAR, "
+        "price_type VARCHAR, "
+        "square_feet INTEGER, "
+        "address VARCHAR, "
+        "cityname VARCHAR, "
+        "state VARCHAR, "
+        "latitude DECIMAL, "
+        "longitude DECIMAL);"}, 
+        transformation_ctx="AmazonRedshift_node1750164179207")
