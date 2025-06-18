@@ -105,3 +105,23 @@ AmazonRedshift_node1750165954380 = glueContext.write_dynamic_frame.from_options(
     "currency VARCHAR,"
     "booking_status VARCHAR);"}, 
     transformation_ctx="AmazonRedshift_node1750165954380")
+
+# Script for node Amazon Redshift
+AmazonRedshift_node1750166039347 = glueContext.write_dynamic_frame.from_options(
+    frame=AmazonS3_node1750166033519, 
+    connection_type="redshift", 
+    connection_options={
+        "redshiftTmpDir": "s3://aws-glue-assets-025523568662-eu-north-1/temporary/",
+        "useConnectionProperties": "true",
+        "dbtable": "raw_data.user_viewing",
+        "connectionName": "Redshift connection",
+        "preactions": "CREATE TABLE IF NOT EXISTS raw_data.user_viewing "
+        "("
+        "user_id INTEGER, "
+        "apartment_id INTEGER, "
+        "viewed_at VARCHAR, "
+        "is_wishlisted VARCHAR, "
+        "call_to_action VARCHAR);"
+    }, 
+    transformation_ctx="AmazonRedshift_node1750166039347"
+)
