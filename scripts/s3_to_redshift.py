@@ -41,3 +41,11 @@ AmazonS3_node1750166033519 = glueContext.create_dynamic_frame.from_options(
     format="parquet", 
     connection_options={"paths": ["s3://project2dt/data/user_view/"], "recurse": True}, 
     transformation_ctx="AmazonS3_node1750166033519")
+
+# Script for node Amazon S3 --apartments
+AmazonS3_node1750165827666 = glueContext.create_dynamic_frame.from_options(
+    format_options={}, 
+    connection_type="s3", 
+    format="parquet", 
+    connection_options={"paths": ["s3://project2dt/data/apartments/"], "recurse": True}, 
+    transformation_ctx="AmazonS3_node1750165827666")
