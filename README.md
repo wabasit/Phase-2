@@ -35,18 +35,11 @@ S3 → Glue Job 1 → Glue Job 2 → Glue Job 3 → Glue Job 4 → Redshift
 ## Project Structure For Cloud
 
 ```text
-project/
-├── glue_jobs/
-│   ├── load_aurora_s3.py
-│   ├── s3_to_redshift.py
-│   ├── redshift_raw_to_curated.py
-│   └── kpi_curated_to_presentation.py
-├── state_machine/
-│   └── step_function_definition.json
-├── config/
-│   └── parameters.json
-├── README.md
-└── user_guide.md
+data/
+  └── apartment_attributes/
+  └── apartments/
+  └── bookings/
+  └── user_viewing
 
 ## Technologies
 - AWS Glue
